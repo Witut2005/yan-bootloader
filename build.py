@@ -2,24 +2,30 @@
 import os 
 import sys
 import argparse 
+import csv_read 
 
-def arguments_check(args):
-    if args.sectors < 1:
-        sys.exit("ERROR: Number of sectors must be greater than zero.")
+# def arguments_check(args):
 
 Parser = argparse.ArgumentParser()
-Parser.add_argument('-sectors', help='how many sectors to load', type=int, default=1, required=False)
+Parser.add_argument('-f', help='Yan configuration file', type=str,  required=False)
 Args = Parser.parse_args()
 
+print(Args.f)
 
-arguments_check(Args)
+
+# arguments_check(Args)
 
 if os.path.isfile('boot_info.inc'):
     os.remove('boot_info.inc')
 
 
 boot_info = open('boot_info.inc', 'a+')
-boot_info.write('SECTORS_TO_LOAD equ ' + str(Args.sectors))
+
+
+boot_info.write('START_SECTOR equ ' + str(csv_read.config[1][1]) + '\n')
+boot_info.write('SECTORS_TO_LOAD equ ' + str(csv_read.config[1][2]) + '\n')
+boot_info.write('MEMORY_START equ ' + str(csv_read.config[1][3][:-1]) + '\n')
+
 boot_info.close()
 
 
@@ -42,5 +48,5 @@ output.close()
 
 os.system('nasm -fbin base.asm -o base.bin')
 
-sys.exit(0)
+sys.exit('Yan bootloader image successfully created')
 

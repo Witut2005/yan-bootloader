@@ -1,15 +1,19 @@
 
 %include "boot_info.inc"
 
+
 read_disk:
+
+mov [disk_number], dl
+
 mov ah, 0x2
 mov al, SECTORS_TO_LOAD 
 mov ch, 0x0
-mov cl, 0x1
+mov cl, START_SECTOR 
 mov dh, 0x0
-mov dl, dl
+mov dl, [disk_number]
 
-mov bx, 0x2000    
+mov bx, MEMORY_START 
 mov es, bx
 mov bx, 0x0       
 
@@ -30,6 +34,6 @@ ok:
 jmp $
 
 
-
+disk_number: db 0x0
 error_message: db "yan bootloader error", 0xa,0x0
 
