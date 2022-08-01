@@ -21,10 +21,14 @@ if os.path.isfile('boot_info.inc'):
 
 boot_info = open('boot_info.inc', 'a+')
 
+how_many_loads = 0
 
-boot_info.write('START_SECTOR equ ' + str(csv_read.config[1][1]) + '\n')
-boot_info.write('SECTORS_TO_LOAD equ ' + str(csv_read.config[1][2]) + '\n')
-boot_info.write('MEMORY_START equ ' + str(csv_read.config[1][3][:-1]) + '\n')
+for x in csv_read.config:
+    boot_info.write('START_SECTOR' + str(x[0]) + ' equ ' + str(x[1]) + '\n')
+    boot_info.write('SECTORS_TO_LOAD' + str(x[0]) + ' equ ' + str(x[2]) + '\n')
+    boot_info.write('MEMORY_START' + str(x[0]) + ' equ ' + str(x[3][:-1]) + '\n')
+    how_many_loads += 1 
+
 
 boot_info.close()
 
