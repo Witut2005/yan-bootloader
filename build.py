@@ -8,18 +8,39 @@ import csv_read
 
 Parser = argparse.ArgumentParser()
 Parser.add_argument('-f', help='Yan configuration file', type=str,  required=False)
+Parser.add_argument('-dap', help='Use Disk Address Packet or not', action='store_true', default=False,  required=False)
+Parser.add_argument('-os', help='Operating system name', type=str,  required=True)
 Args = Parser.parse_args()
 
-print(Args.f)
+
+with open('normal.asm', 'r+') as file:
+    last_line = file.readlines()[-1]
+    print(last_line[0:7])
+    if last_line[0:7] == 'os_name':
+        file.seek(0, os.SEEK_SET)
+        list_tmp =  file.readlines()[:-1]
+        file.seek(0, os.SEEK_SET)
+        for x in list_tmp:
+            file.write(x)
+        for x in range(50):
+            file.write(' ')
+        
+    file.seek(0, os.SEEK_END)
+    file.write('\nos_name: db "' + '1. ' + Args.os + '"' + ',0xa,0xd,0x0')
 
 
-# arguments_check(Args)
 
-if os.path.isfile('boot_info.inc'):
-    os.remove('boot_info.inc')
+disk_read = open('disk.asm', 'w+')
 
+if Args.dap is True:
+    disk_read.write('%include "read_disk_dap.asm"')
+else:
+    disk_read.write('%include "read_disk.asm"')
 
-boot_info = open('boot_info.inc', 'a+')
+disk_read.close()
+    
+
+boot_info = open('boot_info.inc', 'w+')
 
 how_many_loads = 0
 

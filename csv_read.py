@@ -12,5 +12,4 @@ with open('memory.csv') as file:
             config.append(x)
         first_row = False
 
-print(config)
 

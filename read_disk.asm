@@ -71,4 +71,3 @@ mov bx, MEMORY_START5
 mov es, bx
 mov bx, 0x0       
 int 0x13
-
