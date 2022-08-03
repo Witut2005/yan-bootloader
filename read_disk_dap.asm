@@ -8,6 +8,7 @@ DiskAddressPacket:
     .offset: dw 0x0 
     .segment: dw 0x0 
     .lba: dd 0x0
+    .lba48: dd 0x0
 
 read:
     mov [disk_number], dl
@@ -70,6 +71,3 @@ read:
     jnc ok
 
 
-
-data:
-    disk_number: db 0x0
