@@ -1,7 +1,7 @@
 
-%include "boot_info.inc"
+%include "asm/boot_info.inc"
 
-%include "disk.asm"
+%include "asm/disk.asm"
 
 
 ; mov si, error_message
@@ -63,6 +63,24 @@ jmp word MEMORY_START1:0x0
 disk_number: db 0x0
 error_message: db "Yan bootloader error", 0x0
 menu_str: db "Yan bootloader version 0.1",0xd, 0xa,"Choose your operating system:",0xd,0xa,0x0
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
                                                   
                                                   
                                                   

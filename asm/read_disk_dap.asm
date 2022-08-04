@@ -1,5 +1,5 @@
 
-%include "boot_info.inc"
+%include "asm/boot_info.inc"
 
 DiskAddressPacket: 
     .size: db 0x10
